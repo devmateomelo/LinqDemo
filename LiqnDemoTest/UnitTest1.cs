@@ -1,8 +1,11 @@
+using LinqDemo;
+
 namespace LiqnDemoTest
 {
     [TestClass]
     public class UnitTest1
     {
+        /*
         [TestMethod]
         public void TestMethod1()
         {
@@ -51,6 +54,30 @@ namespace LiqnDemoTest
         {
             var helloWorld = () => "Hello World!";
             Assert.AreEqual("Hello World!", helloWorld());
+        }
+        */
+
+        [TestMethod]
+        public void PB()
+        {
+            var p1 = new Product { Id = 1, Name = "Chaussures", Price = 350.00M, Quantity = 10 };
+            var p2 = new Product { Id = 2, Name = "T-shirt", Price = 220.00M, Quantity = 15 };
+            var p3 = new Product { Id = 3, Name = "Pantalon", Price = 370.00M, Quantity = 5 };
+
+            List<Product> productList = new List<Product> { p1, p2, p3 };
+
+            List<Product> expected = new List<Product> { p2, p1, p3 };
+
+            productList = productList.OrderBy(p => p.Price).ToList();
+
+            CollectionAssert.AreEqual(expected, productList);
+
+
+            expected = new List<Product> { p1, p3 };
+
+            productList = productList.Where(p => p.Price > 300).ToList();
+
+            CollectionAssert.AreEqual(expected, productList);
         }
     }
 }
